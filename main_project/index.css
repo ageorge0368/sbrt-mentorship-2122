@@ -33,9 +33,24 @@ body {
     transition: all ease-in-out 250ms;
 }
 
-.video {
+.main {
     height: 45rem;
     width: 75%;
+}
+
+#nav_bar {
+    height: 7%;
+    width: 100%;
+}
+
+#video {
+    height: 35rem;
+    width: 90%;
+    display: flex;
+    border-radius: 2rem;
+    border: 0.5rem solid #FFFFFF;
+    padding: 0.5rem;
+    margin: 2rem;
 }
 
 .chat {
@@ -56,25 +71,25 @@ body {
     width: 100%;
     border-radius: 1.5rem;
     border: 0.25rem solid #FFFFFF;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center;
+    justify-content: center; 
+     flex-direction: row;
+     align-items: center; 
 }
 
 #input_typing{
-    height: 70%;
-    width: 70%;
+    height: 50%;
+    width: 60%;
     border: 0.1rem solid #FFFFFF;
     border-radius: 1rem;
 }
 
 #chat_space1 {
-    height: 70%;
+    height: 50%;
     width: 10%;
 }
 
 #enter_button {
-    height: 70%;
+    height: 50%;
     width: 20%;
     border: 0.1rem solid #FFFFFF;
     border-radius: 1rem;
