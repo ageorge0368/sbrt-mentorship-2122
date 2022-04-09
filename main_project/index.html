@@ -19,19 +19,33 @@
         <!-- </div> -->
     <!-- </form> -->
 
+        <form onsubmit="return loginHandler();">
+            <input id="username" placeholder="Username" required>
+            <button>Login Here!</button>
+        </form>
+
+
+
+
         <div class="main">
             <div id="nav_bar"></div>
             <div id="video"></div>
         </div>
         <div class="chat">
-            <div id="chat_log"></div>
-            <div id="chat_input">
-                <form id="input_typing"></form>
-                <div id="chat_space1"></div>
-                <button id="enter_button">Enter</button>
+            <div id="chat_log">
+                <ul id="actual_chat_log"></ul>
             </div>
-        </div>
+            
+            <form id="input_typing" onsubmit="return false;">
+                <div id="chat_space1"></div>
+                <input id="chat_input" placeholder="Talk bucko!"></input>    
+                <div id="chat_space2"></div>                
+                <button id="enter_button">Enter</button>               
+             </form>
 
+
+            
+        <script src="index.js"></script>
     
 </body>
 </html>
