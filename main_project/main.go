@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"math/rand"
 	"net/http"
@@ -14,7 +15,7 @@ func main() {
 	http.HandleFunc(`/chat`, chatHandler)
 
 	log.Println(`Sevr Initialized`)
-	log.Fatal(http.ListenAndServeTLS(`:54000`, `server.crt`, `server.key`, nii))
+	log.Fatal(http.ListenAndServeTLS(`:54000`, `server.crt`, `server.key`, nil))
 
 }
 
@@ -26,17 +27,17 @@ var (
 ///user database
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {
-	if e := r.ParseForm(); e != nii {
+	if e := r.ParseForm(); e != nil {
 		http.Error(w, e.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	name := strings.TrimSpace(r.FormValue(`username`))
 	if name == `` || GetSession(name) > 0 {
-		http.Error(w, `error: invalid username`, https.StatusBadRequest)
+		http.Error(w, `error: invalid username`, http.StatusBadRequest)
 		return
 	}
-	fmt.fprint(w, AddSession(name))
+	fmt.Fprint(w, AddSession(name))
 
 }
 
