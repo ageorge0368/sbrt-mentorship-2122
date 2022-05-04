@@ -15,7 +15,7 @@ import (
 )
 
 func main() {
-	http.Handle(`/`, http.FileServer(http.Dir(`frontend`)))
+	http.Handle(`/`, http.FileServer(http.Dir(`.`)))
 	http.HandleFunc(`/login`, loginHandler)
 	http.HandleFunc(`/chat`, chatHandler)
 	go Broadcast()
@@ -25,7 +25,7 @@ func main() {
 }
 
 var (
-	sessions   = make(map[string]int)
+	sessions   = make(map[string]*User)
 	sessionMtx = sync.RWMutex{}
 )
 
@@ -86,8 +86,8 @@ type Message struct {
 
 var (
 	wsUpgrader = websocket.Upgrader{
-		Read_BufferSize:  512,
-		Write_BufferSize: 512,
+		ReadBufferSize:  512,
+		WriteBufferSize: 512,
 	}
 )
 
@@ -102,6 +102,10 @@ func chatHandler(w http.ResponseWriter, r *http.Request) {
 	sessionID, e := strconv.Atoi(strings.TrimSpace(r.FormValue(`sessionID`)))
 	if e != nil || name == `` {
 		http.Error(w, `error: the sessionID does not match the inputted username`, http.StatusForbidden)
+		return
+	}
+	if GetSession(name) != sessionID {
+		http.Error(w, `error: sessionID does not match the given username`, http.StatusForbidden)
 		return
 	}
 	ws, e := wsUpgrader.Upgrade(w, r, nil)
@@ -130,7 +134,7 @@ func Broadcast() {
 		for _, user := range sessions {
 			user.ws.Lock()
 			user.ws.WriteJSON(message)
-			user.ws.Unlock
+			user.ws.Unlock()
 		}
 		sessionMtx.Unlock()
 	}
